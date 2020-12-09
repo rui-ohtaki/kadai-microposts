@@ -41,23 +41,23 @@ class User < ApplicationRecord
   end
 
  #selfにはfavorite(other)を実行したときにmicropostが代入される
-  def favorite(other_micropost)
+  def like(other_micropost)
     unless self == other_micropost
     #find_or_create_by(xxxxxxxx:yyyyyy) xxxxxxxxは　テーブルのカラム名yyyyyyはそれが何を表すか記載
-     self.favorite.find_or_create_by(micropost_id: other_micropost.id)
+     self.like.find_or_create_by(micropost_id: other_micropost.id)
     #実行したmicropostのインスタンスが self
     end
 　end
  
  #selfにはunfavorite(other)を実行したときにmicropostが代入される
-  def unfavorite(other_micropost)
-    self.favorite.find_by(micropost_id: other_micropost.id)
+  def likeing(other_micropost)
+    self.like.find_by(micropost_id: other_micropost.id)
     #実行したmicropostのインスタンスが self
-    favorites.destroy if favorites
+    like.destroy if like
   end
 
-  def favorite?(other_micropost)
-    self.favorites.include?(other_micropost)
+  def like?(other_micropost)
+    self.like.include?(other_micropost)
   end
   end
 end
