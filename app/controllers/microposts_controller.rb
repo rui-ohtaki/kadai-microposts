@@ -7,17 +7,23 @@ class MicropostsController < ApplicationController
     if @micropost.save
       flash[:success] = 'メッセージを投稿しました。'
       redirect_to root_url
+      #root_urlに移動して実行する
+      
     else
-      @microposts = current_user.feed_microposts.order(id: :desc).page(params[:page])
+       @microposts = current_user.microposts.order(id: :desc).page(params[:page])
       flash.now[:danger] = 'メッセージの投稿に失敗しました。'
       render 'toppages/index'
+      #toppages/index.html.erb を開く(実行しない)
+      
     end
-  end
+ end
 
   def destroy
     @micropost.destroy
     flash[:success] = 'メッセージを削除しました。'
     redirect_back(fallback_location: root_path)
+    #root_pathに移動して実行する
+    
   end
 
   private
@@ -30,6 +36,7 @@ class MicropostsController < ApplicationController
     @micropost = current_user.microposts.find_by(id: params[:id])
     unless @micropost
       redirect_to root_url
+      #root_urlに移動して実行する
     end
   end
 end

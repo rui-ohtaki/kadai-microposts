@@ -21,9 +21,14 @@ class UsersController < ApplicationController
     if @user.save
       flash[:success] = 'ユーザを登録しました。'
       redirect_to @user
+      #@userで記載した処理にリダイレクトして実行する
+      
     else
       flash.now[:danger] = 'ユーザの登録に失敗しました。'
       render :new
+      #users/new.html.erb を表示するだけ（リダイレクトはしない）
+      #「create」というファイルはないからapp/views/tasks/create.html.erb を呼び出して表示をしてくれるよう指示
+      
     end
   end
 
