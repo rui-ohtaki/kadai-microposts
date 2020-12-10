@@ -2,7 +2,7 @@ class FavoritesController < ApplicationController
    before_action :require_user_logged_in
 
   def create
-    #1:該当のmicripostを取得する
+    #1:該当のmicripostを取得する   　　↓_button.htmlと合わせる
     @micropost = Micropost.find(params[:micropost_id])
     #2:取得した記事のIDとユーザーのIDをfavoriteテーブルに格納する
     id = current_user.id
