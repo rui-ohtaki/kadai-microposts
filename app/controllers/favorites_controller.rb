@@ -4,12 +4,8 @@ class FavoritesController < ApplicationController
   def create
     #1:該当のmicripostを取得する   　　↓_button.htmlと合わせる
     @micropost = Micropost.find(params[:micropost_id])
-    #2:取得した記事のIDとユーザーのIDをfavoriteテーブルに格納する
     id = current_user.id
-    # @micropost = :micropost_id
     Favorite.create(user_id: id, micropost_id: @micropost.id)
-    # user= User.find(params[@micropost])
-    # current_user.favorite(micropost)
     flash[:success] = 'お気に入りに追加しました。'
     redirect_to root_url
   end

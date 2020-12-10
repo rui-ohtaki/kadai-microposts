@@ -42,12 +42,8 @@ class User < ApplicationRecord
 
  #selfにはfavorite(other)を実行したときにmicropostが代入される
   def like(other_micropost)
-    unless self == other_micropost
-    #find_or_create_by(xxxxxxxx:yyyyyy) xxxxxxxxは　テーブルのカラム名yyyyyyはそれが何を表すか記載
-     self.like.find_or_create_by(micropost_id: other_micropost.id)
-    #実行したmicropostのインスタンスが self
-    end
-　end
+     current_user.find_or_create_by(@microposts)
+  end
  
  #selfにはunfavorite(other)を実行したときにmicropostが代入される
   def likeing(other_micropost)
@@ -58,6 +54,5 @@ class User < ApplicationRecord
 
   def like?(other_micropost)
     self.like.include?(other_micropost)
-  end
   end
 end

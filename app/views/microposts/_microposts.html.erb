@@ -10,7 +10,7 @@
           <p class="mb-0"><%= micropost.content %></p>
         </div>
         <div class="btn-toolbar">
-            <%= render 'favorites/likes_button', micropost: micropost %>
+            <%= render 'favorites/like_button', micropost: micropost %>
           <% if current_user == micropost.user %>
             <%= link_to "Delete", micropost, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-sm mr-1' %>
           <% end %>
