@@ -8,22 +8,15 @@ class User < ApplicationRecord
 
   has_many :microposts
   has_many :relationships
+  has_many :favorites
   has_many :followings, through: :relationships, source: :follow
   has_many :reverses_of_relationship, class_name: 'Relationship', foreign_key: 'follow_id'
   has_many :followers, through: :reverses_of_relationship, source: :user
-  
-  has_many :favorite_microposts, through: :favorites, source: :micropost
-  #has_many :micropostsは最初に使ってしまったので「has_many任意の名称にして記載する
-  #throughは中間テーブル名、sourceは「models」フォルダの中の各ファイルに記載されている
-  #「belongs_to」のところの記載に合わせる
-  has_many :reverses_of_favorite, class_name: 'Favorites', foreign_key: 'user_id'
+  has_many :favorite_microposts, through:  :favorites, source: :micropost, dependent: :destroy
 
   def follow(other_user)
-    #フォローしようとしている other_user が自分自身ではないかを検証
     unless self == other_user
-      #find_or_create_byのあとはテーブルのカラム名
       self.relationships.find_or_create_by(follow_id: other_user.id)
-    #実行した User のインスタンスが self
     end
   end
 
@@ -40,19 +33,16 @@ class User < ApplicationRecord
     Micropost.where(user_id: self.following_ids + [self.id])
   end
 
- #selfにはfavorite(other)を実行したときにmicropostが代入される
-  def like(other_micropost)
-     current_user.find_or_create_by(@microposts)
+  def favorite(other_micropost)
+     current_user.find_or_create_by(micropost.id)
   end
  
- #selfにはunfavorite(other)を実行したときにmicropostが代入される
-  def likeing(other_micropost)
-    self.like.find_by(micropost_id: other_micropost.id)
-    #実行したmicropostのインスタンスが self
-    like.destroy if like
+  def defavorite(other_micropost)
+    self.favorites.find_by(micropost_id: other_micropost.id)
+    favorite.destroy if favorite
   end
-
-  def like?(other_micropost)
-    self.like.include?(other_micropost)
+  
+  def favoriting?(other_micropost)
+    self.favoritings.include?(other_micropost)
   end
 end

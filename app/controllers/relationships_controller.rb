@@ -10,7 +10,7 @@ class RelationshipsController < ApplicationController
 
   def destroy
     user = User.find(params[:follow_id])
-    current_user.unfollow(user)
+    current_user.defavorite(user)
     flash[:success] = 'ユーザのフォローを解除しました。'
     redirect_to user
   end
