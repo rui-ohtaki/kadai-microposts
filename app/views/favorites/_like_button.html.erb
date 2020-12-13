@@ -1,12 +1,11 @@
-  <% if current_user.favoriting?(micropost) %>
-    <%= form_with(model: current_user.favorites.find_by(micropost_id), local: true, method: :delete) do |f| %>
-　　　　　　　　　　　　　<!--↓favorite_buttonに定義している-->
-      <%= hidden_field_tag :micropost_id %>
-      <%= f.submit 'Likeing', class: 'btn btn-danger btn-block btn-sm' %>
-    <% end %>
-  <% else %>
-    <%= form_with(model: current_user.defavorite.build, local: true) do |f| %>
-      <%= hidden_field_tag :micropost_id %>S
-      <%= f.submit 'Like', class: 'btn btn-primary btn-block btn-sm' %>
-    <% end %>
+<% if current_user.favorites?(micropost) %>　
+  <%= form_with(model: current_user.favorites.find_by(micrpost), local: true, method: :delete) do |f| %>
+    <%= hidden_field_tag :micropost_id %>
+    <%= f.submit 'Likeing', class: 'btn btn-danger btn-block btn-sm' %>
   <% end %>
+  <% else %>
+  <%= form_with(model: current_user.favorites.build, local: true) do |f| %>
+    <%= hidden_field_tag :micropost_id %>
+    <%= f.submit 'Like', class: 'btn btn-primary btn-block btn-sm' %>
+  <% end %>
+<% end %>
