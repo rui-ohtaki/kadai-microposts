@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   end
   
   def counts(micropost)
-    @count_favoritings = micropost.favoritings.count
+    @count_favorites = micropost.favorites.count
   end
 
 end

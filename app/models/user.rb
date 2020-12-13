@@ -34,13 +34,13 @@ has_many :favorite_microposts, through:  :favorites, source: :micropost, depende
   def feed_microposts
     Micropost.where(user_id: self.following_ids + [self.id])
   end
-  
+   
   def favorite(other_micropost)
-     current_user.find_or_create_by(micropost.id)
+    self.favorites.find_or_create_by(micropost_id: other_micropost.id)
   end
-  
-  def defavorite(other_micropost)
-    self.favorites.find_by(micropost_id: other_micropost.id)
+
+  def unfavorite(other_micropost)
+    self.favorite.find_by(micropost_id: other_micropost.id)
     favorite.destroy if favorite
   end
   
