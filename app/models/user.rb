@@ -40,7 +40,7 @@ has_many :favorite_microposts, through:  :favorites, source: :micropost, depende
   end
 
   def unfavorite(other_micropost)
-    self.favorite.find_by(micropost_id: other_micropost.id)
+    favorite = self.favorites.find_by(micropost_id: other_micropost.id)
     favorite.destroy if favorite
   end
   
