@@ -47,4 +47,5 @@ has_many :favorite_microposts, through:  :favorites, source: :micropost, depende
   def favorites?(micropost)
     self.favorite_microposts.include?(micropost)
   end
+
 end

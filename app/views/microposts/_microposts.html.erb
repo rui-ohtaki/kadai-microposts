@@ -15,7 +15,7 @@
         <div class="btn-toolbar">
             <%= render 'favorites/like_button', micropost: micropost %>
           <% if current_user == micropost.user %>
-            <%= link_to "Delete", micropost, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-sm mr-1' %>
+            <%= link_to "Delete", micropost, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger mr-10' %>
           <% end %>
         </div>
         
