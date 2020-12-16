@@ -21,13 +21,11 @@ class UsersController < ApplicationController
     if @user.save
       flash[:success] = 'ユーザを登録しました。'
       redirect_to @user
-      #@userで記載した処理にリダイレクトして実行する
       
     else
       flash.now[:danger] = 'ユーザの登録に失敗しました。'
       render :new
-      #users/new.html.erb を表示するだけ（リダイレクトはしない）
-      #「create」というファイルはないからapp/views/tasks/create.html.erb を呼び出して表示をしてくれるよう指示
+
       
     end
   end
@@ -46,18 +44,18 @@ class UsersController < ApplicationController
   
   def favorites
     @micropost = Micropost.find(params[:id])
-    @favorites = @micropost.favortes.page(params[:page])
+    @favorites = @micropost.favorites.page(params[:page])
     counts(@micropost)
   end
   
   def favorite?
       @micropost = Micropost.find(params[:id])
-      @favorites = @micropost.favortes.page(params[:page])
+      @favorites = @micropost.favorites.page(params[:page])
   end
   
   def likes
     @micropost = Micropost.find(params[:id])
-    @favorites = @micropost.favortes.page(params[:page])
+    @favorites = @micropost.favorites.page(params[:page])
   end
   
   private
